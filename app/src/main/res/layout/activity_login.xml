@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/img_view"
-                android:layout_width="383dp"
-                android:layout_height="261dp"
+                android:layout_width="384dp"
+                android:layout_height="273dp"
                 android:layout_below="@+id/txt_welcome"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="@dimen/dp16"
@@ -42,7 +42,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_email"
                 style="@style/StandardTextInput"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="15dp"
                 android:layout_below="@id/img_view"
                 android:layout_centerHorizontal="true">
 
@@ -50,7 +50,6 @@
                     android:id="@+id/edt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
                     android:hint="@string/hint_email"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -65,7 +64,6 @@
                     android:id="@+id/edt_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
                     android:hint="@string/hint_password"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -73,9 +71,9 @@
             <Button
                 android:id="@+id/btn_login"
                 style="@style/StandardButton"
-                android:layout_marginTop="15dp"
                 android:layout_below="@id/til_password"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="125dp"
                 android:text="@string/btn_login" />
 
             <TextView
@@ -83,6 +81,7 @@
                 style="@style/LinkText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:layout_below="@id/btn_login"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dp8"

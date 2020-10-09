@@ -1,13 +1,13 @@
 package com.mprajadinata.whatsappclone
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.mprajadinata.whatsappclone.activity.LoginActivity
 import com.mprajadinata.whatsappclone.adapter.SectionPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
@@ -23,12 +23,31 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         mSectionPagerAdapter = SectionPagerAdapter(supportFragmentManager)
-
         container.adapter = mSectionPagerAdapter
         fab.setOnClickListener {
             Snackbar.make(it, "Replace with action", Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_logout -> onLogout()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun onLogout() {
+        firebaseAuth.signOut()
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
     class PlaceHolderFragment : Fragment() {
@@ -55,7 +74,6 @@ class MainActivity : AppCompatActivity() {
             )}"
             return rootView
         }
-
     }
 
 

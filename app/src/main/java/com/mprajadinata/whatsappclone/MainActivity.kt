@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.mprajadinata.whatsappclone.activity.LoginActivity
+import com.mprajadinata.whatsappclone.activity.ProfilActivity
 import com.mprajadinata.whatsappclone.adapter.SectionPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
@@ -38,10 +39,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
+            R.id.action_profile -> onProfil()
             R.id.action_logout -> onLogout()
+
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun onProfil() {
+        startActivity(Intent(this, ProfilActivity::class.java))
+        finish()
+
     }
 
     private fun onLogout() {

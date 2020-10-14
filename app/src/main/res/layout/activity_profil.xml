@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ProfilActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <ImageView
+                android:id="@+id/btn_back_profil"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/abc_vector_test" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:paddingLeft="25dp"
+                android:text="Profile"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout">
+
+        <RelativeLayout
+            android:id="@+id/profile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dp16"> <!--region Image Profile-->
+
+            <RelativeLayout
+                android:id="@+id/img_photo"
+                android:layout_width="@dimen/dp150"
+                android:layout_height="@dimen/dp150"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp16">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="@dimen/dp150"
+                    android:layout_height="@dimen/dp150"
+                    android:src="@drawable/ic_user" />
+
+                <ImageButton
+                    android:id="@+id/imbtn_profile"
+                    style="@style/StandardImageButton"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ic_camera" />
+
+            </RelativeLayout>
+
+            <!--endregion-->
+            <!--region Data User-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_name_profile"
+                style="@style/StandardTextInput"
+                android:paddingTop="@dimen/dp16"
+                android:layout_below="@id/img_photo"
+                android:layout_centerHorizontal="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_name_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_name"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_email_profile"
+                style="@style/StandardTextInput"
+                android:paddingTop="@dimen/dp16"
+                android:layout_below="@id/til_name_profile"
+                android:layout_centerHorizontal="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_email_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_email"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_phone_profile"
+                style="@style/StandardTextInput"
+                android:paddingTop="@dimen/dp16"
+                android:layout_below="@id/til_email_profile"
+                android:layout_centerHorizontal="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_phone_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_phone"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_apply"
+                style="@style/StandardButton"
+                android:layout_marginTop="@dimen/dp100"
+                android:layout_below="@id/til_phone_profile"
+                android:layout_centerHorizontal="true"
+                android:text="@string/btn_apply" />
+
+            <Button
+                android:id="@+id/btn_delete_account"
+                style="@style/WarningButton"
+                android:layout_below="@id/btn_apply"
+                android:layout_centerHorizontal="true"
+                android:text="@string/btn_delete_account" /> <!--endregion-->
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/progress_layout"
+        style="@style/ProgressLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

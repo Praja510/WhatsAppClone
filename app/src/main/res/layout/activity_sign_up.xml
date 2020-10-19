@@ -98,6 +98,7 @@
             <Button
                 android:id="@+id/btn_signup"
                 style="@style/StandardButton"
+                android:layout_marginTop="@dimen/dp50"
                 android:layout_below="@id/til_password"
                 android:layout_centerHorizontal="true"
                 android:text="@string/btn_signup" />

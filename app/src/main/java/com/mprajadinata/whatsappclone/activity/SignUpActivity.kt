@@ -112,7 +112,7 @@ class SignUpActivity : AppCompatActivity() {
                             "SignUp error:${task.exception?.localizedMessage}",
                             Toast.LENGTH_LONG
                         ).show()
-                    } else if (firebaseAuth.uid == null) {
+                    } else if (firebaseAuth.uid != null) {
                         val email = edt_email.text.toString()
                         val phone = edt_phone.text.toString()
                         val name = edt_name.text.toString()

@@ -3,9 +3,11 @@ package com.mprajadinata.whatsappclone
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.mprajadinata.whatsappclone.activity.LoginActivity
 import com.mprajadinata.whatsappclone.activity.ProfilActivity
@@ -29,6 +31,28 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(it, "Replace with action", Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show()
         }
+
+        container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
+        tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
+        resizeTabs()
+        tabs.getTabAt(1)?.select()
+    }
+
+    private fun resizeTabs() {
+
+        val layout = (tabs.getChildAt(0) as LinearLayout).getChildAt(0) as LinearLayout
+        val layoutParams = layout.layoutParams as LinearLayout.LayoutParams
+        layoutParams.weight = 0.4f
+        layout.layoutParams = layoutParams
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (firebaseAuth.currentUser == null) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -50,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onProfil() {
         startActivity(Intent(this, ProfilActivity::class.java))
-        finish()
+
 
     }
 

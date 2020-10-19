@@ -1,6 +1,8 @@
 package com.mprajadinata.whatsappclone.activity
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -9,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.mprajadinata.whatsappclone.MainActivity
 import com.mprajadinata.whatsappclone.R
 import com.mprajadinata.whatsappclone.util.*
@@ -18,6 +21,10 @@ class ProfilActivity : AppCompatActivity() {
 
     private val firebaseDb = FirebaseFirestore.getInstance()
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseStorage = FirebaseStorage.getInstance().reference
+    private var imageUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +48,22 @@ class ProfilActivity : AppCompatActivity() {
             onDelete()
         }
 
+        imbtn_profile.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, REQUEST_CODE_PHOTO)
+
+        }
+
         populateInfo()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PHOTO) {
+            storeImage(data?.data)
+        }
     }
 
     private fun populateInfo() {
@@ -50,9 +72,14 @@ class ProfilActivity : AppCompatActivity() {
         firebaseDb.collection(DATA_USERS).document(userId!!).get()
             .addOnSuccessListener {
                 val user = it.toObject(User::class.java)
+                imageUrl = user?.imageUrl
                 edt_name_profile.setText(user?.name, TextView.BufferType.EDITABLE)
                 edt_email_profile.setText(user?.email, TextView.BufferType.EDITABLE)
                 edt_phone_profile.setText(user?.phone, TextView.BufferType.EDITABLE)
+                if (imageUrl != null) {
+                    populateImage(this, user?.imageUrl, img_profile, R.drawable.ic_user)
+                }
+
                 progress_layout.visibility = View.GONE
 
             }
@@ -62,6 +89,50 @@ class ProfilActivity : AppCompatActivity() {
                 finish()
             }
     }
+
+    private fun storeImage(uri: Uri?) {
+
+        if (uri != null) {
+            Toast.makeText(this, "Uploading..", Toast.LENGTH_LONG).show()
+            progress_layout.visibility = View.VISIBLE
+            val filePath = firebaseStorage.child(DATA_IMAGES).child(userId!!)
+
+            filePath.putFile(uri)
+                .addOnSuccessListener {
+                    filePath.downloadUrl
+                        .addOnSuccessListener {
+                            val url = it.toString()
+                            firebaseDb.collection(DATA_USERS)
+                                .document(userId).update(DATA_USER_IMAGE_URL, url)
+                                .addOnSuccessListener {
+                                    imageUrl = url
+                                    populateImage(this, imageUrl, img_profile, R.drawable.ic_user)
+
+                                }
+
+                            progress_layout.visibility = View.GONE
+
+                        }
+
+                        .addOnFailureListener {
+                            onUploadFailured()
+
+                        }
+                }
+
+                .addOnFailureListener {
+                    onUploadFailured()
+
+                }
+        }
+    }
+
+    private fun onUploadFailured() {
+
+        Toast.makeText(this, "Failed, Pls try again", Toast.LENGTH_LONG).show()
+        progress_layout.visibility = View.GONE
+    }
+
 
     private fun onApply() {
 
@@ -97,9 +168,21 @@ class ProfilActivity : AppCompatActivity() {
             .setMessage("Are you sure about this?")
             .setPositiveButton("Yes") { dialog, which ->
                 firebaseDb.collection(DATA_USERS).document(userId!!).delete()
+                firebaseStorage.child(DATA_IMAGES).child(userId).delete()
+                firebaseAuth.currentUser?.delete()
+                    ?.addOnSuccessListener {
+                        finish()
+                    }
+
+                    ?.addOnFailureListener {
+                        finish()
+                    }
+
                 progress_layout.visibility = View.GONE
                 Toast.makeText(this, "Profil deleted", Toast.LENGTH_LONG).show()
                 finish()
+
+                startActivity(Intent(this, LoginActivity::class.java))
 
             }
 

@@ -74,7 +74,7 @@
                 style="@style/StandardButton"
                 android:layout_below="@id/til_password"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="125dp"
+                android:layout_marginTop="173dp"
                 android:text="@string/btn_login" />
 
             <TextView

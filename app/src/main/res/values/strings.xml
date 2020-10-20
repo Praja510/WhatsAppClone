@@ -19,7 +19,8 @@
     <string name="btn_signup">SignUp</string>
     <string name="btn_apply">Apply</string>
     <string name="btn_delete_account">Delete Account</string>
-    <string name="btn_send">Send</string> <!-- endregion-->
+    <string name="btn_send">Send</string>
+    <!-- endregion-->
     <!-- region text for TextView-->
     <string name="txt_signup"><u>No Account? Go To SignUp</u></string>
     <string name="txt_login"><u>Already have an account? Go To Login</u></string>
@@ -30,5 +31,12 @@
     <!-- region text content-->
     <string name="cont_hello_status_update_fragment">Hello Status Update Fragment</string>
     <string name="cont_hello_status_list_fragment">Hello Status fragment</string>
-    <string name="cont_hello_chats_fragment">Hello Chats fragment</string> <!-- endregion-->
+    <string name="cont_hello_chats_fragment">Hello Chats fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- endregion-->
+
+    <string name="hello_status_update_fragment">Hello Status Update Fragment</string>
+    <string name="hello_status_fragment">Hello Status fragment</string>
+    <string name="hello_chats_fragment">Hello Chats fragment</string>
 </resources>

@@ -108,7 +108,7 @@
                     android:id="@+id/edt_email_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_email"
+                    android:hint="@string/txt_status"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 

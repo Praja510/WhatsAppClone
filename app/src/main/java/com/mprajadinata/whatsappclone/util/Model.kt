@@ -11,3 +11,8 @@ data class User(
     val statusTime: String? = ""
 
 )
+
+data class Contact(
+    val name: String?,
+    val phone: String?
+)

@@ -1,20 +1,27 @@
 package com.mprajadinata.whatsappclone
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.LinearLayout
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.mprajadinata.whatsappclone.activity.ContactsActivity
 import com.mprajadinata.whatsappclone.activity.LoginActivity
 import com.mprajadinata.whatsappclone.activity.ProfilActivity
 import com.mprajadinata.whatsappclone.adapter.SectionPagerAdapter
+import com.mprajadinata.whatsappclone.util.PERMISSION_REQUEST_READ_CONTACT
+import com.mprajadinata.whatsappclone.util.REQUEST_NEW_CHATS
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -63,8 +70,83 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onNewChat() {
-        Toast.makeText(this, "Add action for result", Toast.LENGTH_LONG).show()
+
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_CONTACTS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.READ_CONTACTS
+                )
+            ) {
+
+                AlertDialog.Builder(this)
+                    .setTitle("Contacts permission")
+                    .setMessage("This App Requires Access to Your Contacts to Initiation A Concersation")
+                    .setPositiveButton("Yes") { dialog, which ->
+                        requestContactPermision()
+                    }
+
+                    .setNegativeButton("No") { dialog, which ->
+
+                    }
+
+                    .show()
+            } else {
+                requestContactPermision()
+            }
+        } else {
+            startNewActivity()
+        }
+
     }
+
+    companion object {
+        const val PARAM_NAME = "name"
+        const val PARAM_PHONE = "phone"
+    }
+
+    private fun startNewActivity() {
+        startActivityForResult(Intent(this, ContactsActivity::class.java), REQUEST_NEW_CHATS)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                REQUEST_NEW_CHATS -> {
+                }
+
+            }
+        }
+    }
+
+    private fun requestContactPermision() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.READ_CONTACTS),
+            PERMISSION_REQUEST_READ_CONTACT
+
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            PERMISSION_REQUEST_READ_CONTACT -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startNewActivity()
+                }
+            }
+        }
+    }
+
 
     private fun resizeTabs() {
 
@@ -112,31 +194,30 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    class PlaceHolderFragment : Fragment() {
-        companion object {
-            private val ARG_SECTION_NUMBER = "Section Number"
-            fun newIntent(sectionNumber: Int): PlaceHolderFragment {
-                val fragment =
-                    PlaceHolderFragment()
-                val args = Bundle()
-                args.putInt(ARG_SECTION_NUMBER, sectionNumber)
-                fragment.arguments = args
-                return fragment
-            }
-        }
 
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            val rootView = inflater.inflate(R.layout.fragment_main, container, false)
-            rootView.section_label.text = "Hello world, from section${arguments?.getInt(
-                ARG_SECTION_NUMBER
-            )}"
-            return rootView
-        }
-    }
-
-
+//    class PlaceHolderFragment : Fragment() {
+//        companion object {
+//            private val ARG_SECTION_NUMBER = "Section Number"
+//            fun newIntent(sectionNumber: Int): PlaceHolderFragment {
+//                val fragment =
+//                    PlaceHolderFragment()
+//                val args = Bundle()
+//                args.putInt(ARG_SECTION_NUMBER, sectionNumber)
+//                fragment.arguments = args
+//                return fragment
+//            }
+//        }
+//
+//        override fun onCreateView(
+//            inflater: LayoutInflater,
+//            container: ViewGroup?,
+//            savedInstanceState: Bundle?
+//        ): View? {
+//            val rootView = inflater.inflate(R.layout.fragment_main, container, false)
+//            rootView.section_label.text = "Hello world, from section${arguments?.getInt(
+//                ARG_SECTION_NUMBER
+//            )}"
+//            return rootView
+//        }
+//    }
 }

@@ -16,3 +16,7 @@ data class Contact(
     val name: String?,
     val phone: String?
 )
+
+data class Chat(
+    val chatParticipants: ArrayList<String>
+)

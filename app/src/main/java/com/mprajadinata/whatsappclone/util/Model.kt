@@ -20,3 +20,9 @@ data class Contact(
 data class Chat(
     val chatParticipants: ArrayList<String>
 )
+
+data class Message(
+    val sentBy: String? = "",
+    val message: String? = "",
+    val messageTime: Long? = 0
+)

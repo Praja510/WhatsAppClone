@@ -1,5 +1,6 @@
 package com.mprajadinata.whatsappclone.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mprajadinata.whatsappclone.MainActivity
 import com.mprajadinata.whatsappclone.R
+import com.mprajadinata.whatsappclone.activity.ConversationActivity
 import com.mprajadinata.whatsappclone.adapter.ChatsAdapter
 import com.mprajadinata.whatsappclone.listener.ChatClickListener
 import com.mprajadinata.whatsappclone.listener.FailureCallback
@@ -146,12 +148,20 @@ class ChatsFragment : Fragment(), ChatClickListener {
     }
 
     override fun onChatClicked(
-        name: String?,
+        chatId: String?,
         otherUserId: String?,
         chatsImageUrl: String?,
         chatName: String?
     ) {
 
-        Toast.makeText(context, "$name clicked", Toast.LENGTH_LONG).show()
+        startActivity(
+            ConversationActivity.newIntent(
+                context,
+                chatId,
+                chatsImageUrl,
+                otherUserId,
+                chatName
+            )
+        )
     }
 }

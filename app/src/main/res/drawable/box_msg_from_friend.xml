@@ -4,5 +4,5 @@
     android:padding="@dimen/dp12"
     android:shape="rectangle">
     <solid android:color="@color/white" />
-    <corners android:radius="@dimen/dp4" />
+    <corners android:radius="@dimen/dp5" />
 </shape>

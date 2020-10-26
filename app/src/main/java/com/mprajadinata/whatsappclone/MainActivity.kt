@@ -45,10 +45,11 @@ class MainActivity : AppCompatActivity(), FailureCallback {
         setSupportActionBar(toolbar)
         mSectionPagerAdapter = SectionPagerAdapter(supportFragmentManager)
         container.adapter = mSectionPagerAdapter
-        fab.setOnClickListener {
-            Snackbar.make(it, "Replace with action", Snackbar.LENGTH_SHORT)
-                .setAction("Action", null).show()
-        }
+
+//        fab.setOnClickListener {
+//            Snackbar.make(it, "Replace with action", Snackbar.LENGTH_SHORT)
+//                .setAction("Action", null).show()
+//        }
 
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
@@ -73,8 +74,9 @@ class MainActivity : AppCompatActivity(), FailureCallback {
 
         fab.setOnClickListener {
             onNewChat()
-            Snackbar.make(it, "Replace with action", Snackbar.LENGTH_SHORT)
-                .setAction("Action", null).show()
+
+//            Snackbar.make(it, "Replace with action", Snackbar.LENGTH_SHORT)
+//                .setAction("Action", null).show()
 
         }
     }

@@ -15,3 +15,5 @@ val REQUEST_NEW_CHATS = 1922
 val DATA_USER_CHATS = "userChats"
 val DATA_CHATS = "Chats"
 val DATA_CHAT_PARTICIPANTS = "chatParticipants"
+val DATA_CHAT_MESSAGE = "messages"
+val DATA_CHAT_MESSAGE_TIME = "messageTime"

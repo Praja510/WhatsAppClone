@@ -7,6 +7,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.common.collect.ComparisonChain.start
 import com.mprajadinata.whatsappclone.R
+import java.text.DateFormat
+import java.util.*
 
 fun populateImage(
     context: Context?,
@@ -26,4 +28,9 @@ fun progressDrawable(context: Context): CircularProgressDrawable {
         centerRadius = 30f // diameter lingkaran
         start() // memulai progressDrawable
     }
+}
+
+fun getTime(): String {
+    val dateFormat = DateFormat.getDateInstance()
+    return dateFormat.format(Date())
 }

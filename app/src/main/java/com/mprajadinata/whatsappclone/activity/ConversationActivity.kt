@@ -2,7 +2,10 @@ package com.mprajadinata.whatsappclone.activity
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,12 +16,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.mprajadinata.whatsappclone.MainActivity
 import com.mprajadinata.whatsappclone.R
 import com.mprajadinata.whatsappclone.adapter.ConversationAdapter
-import com.mprajadinata.whatsappclone.util.DATA_CHATS
-import com.mprajadinata.whatsappclone.util.DATA_CHAT_MESSAGE
-import com.mprajadinata.whatsappclone.util.DATA_CHAT_MESSAGE_TIME
-import com.mprajadinata.whatsappclone.util.populateImage
+import com.mprajadinata.whatsappclone.util.*
 import kotlinx.android.synthetic.main.activity_conversation.*
-import com.mprajadinata.whatsappclone.util.Message
 
 class ConversationActivity : AppCompatActivity() {
 
@@ -127,5 +126,36 @@ class ConversationActivity : AppCompatActivity() {
             }
         }
 
+        firebaseDb.collection(DATA_USERS).document(userId!!).get()
+            .addOnSuccessListener {
+                val user = it.toObject(User::class.java)
+                phone = user?.phone
+            }
+
+            .addOnFailureListener { e ->
+                e.printStackTrace()
+                finish()
+            }
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_conversation, menu)
+        return true
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_profile -> {
+                startActivity(Intent(this, ProfilActivity::class.java))
+            }
+
+            R.id.action_call -> {
+                startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone")))
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -74,7 +74,7 @@ class ProfilActivity : AppCompatActivity() {
                 val user = it.toObject(User::class.java)
                 imageUrl = user?.imageUrl
                 edt_name_profile.setText(user?.name, TextView.BufferType.EDITABLE)
-                edt_status_profile.setText(user?.status, TextView.BufferType.EDITABLE)
+//                edt_status_profile.setText(user?.status, TextView.BufferType.EDITABLE)
                 edt_phone_profile.setText(user?.phone, TextView.BufferType.EDITABLE)
                 if (imageUrl != null) {
                     populateImage(this, user?.imageUrl, img_profile, R.drawable.ic_user)
@@ -139,12 +139,12 @@ class ProfilActivity : AppCompatActivity() {
         progress_layout.visibility = View.VISIBLE
 
         val name = edt_name_profile.text.toString()
-        val status = edt_status_profile.text.toString()
+//        val status = edt_status_profile.text.toString()
         val phone = edt_phone_profile.text.toString()
 
         val map = HashMap<String, Any>()
         map[DATA_USER_NAME] = name
-        map[DATA_USER_STATUS] = status
+//        map[DATA_USER_STATUS] = status
         map[DATA_USER_PHONE] = phone
 
         firebaseDb.collection(DATA_USERS).document(userId!!).update(map)

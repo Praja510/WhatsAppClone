@@ -97,26 +97,26 @@
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_email_profile"
-                style="@style/StandardTextInput"
-                android:paddingTop="@dimen/dp16"
-                android:layout_below="@id/til_name_profile"
-                android:layout_centerHorizontal="true">
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                android:id="@+id/til_email_profile"-->
+            <!--                style="@style/StandardTextInput"-->
+            <!--                android:paddingTop="@dimen/dp16"-->
+            <!--                android:layout_below="@id/til_name_profile"-->
+            <!--                android:layout_centerHorizontal="true">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_status_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/txt_status"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <!--                <com.google.android.material.textfield.TextInputEditText-->
+            <!--                    android:id="@+id/edt_status_profile"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:hint="@string/txt_status"-->
+            <!--                    android:inputType="text" />-->
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_phone_profile"
                 style="@style/StandardTextInput"
                 android:paddingTop="@dimen/dp16"
-                android:layout_below="@id/til_email_profile"
+                android:layout_below="@id/til_name_profile"
                 android:layout_centerHorizontal="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -130,7 +130,7 @@
             <Button
                 android:id="@+id/btn_apply"
                 style="@style/StandardButton"
-                android:layout_marginTop="@dimen/dp100"
+                android:layout_marginTop="245dp"
                 android:layout_below="@id/til_phone_profile"
                 android:layout_centerHorizontal="true"
                 android:text="@string/btn_apply" />
